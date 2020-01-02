@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.redis.connection.ReactiveRedisConnection;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -18,8 +17,8 @@ import reactor.core.publisher.Mono;
 @Service
 public class UserHandler {
 
-	@Resource
-	private ReactiveRedisConnection connection;
+	//@Resource
+	//private ReactiveRedisConnection connection;
 
 	public Mono<ServerResponse> getUserById(ServerRequest request) {
 		System.out.println("获取参数");
