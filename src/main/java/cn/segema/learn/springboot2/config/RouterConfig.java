@@ -15,14 +15,15 @@ import cn.segema.learn.springboot2.handler.UserHandler;
 public class RouterConfig {
 	@Resource
 	private UserHandler userHandler;
-	
+
 	@Resource
 	private OauthHandler oauthHandler;
 
 	@Bean
 	public RouterFunction<?> routerFunction() {
-		return RouterFunctions.route(RequestPredicates.GET("/user/id"), userHandler::getUserById)
-				.andRoute(RequestPredicates.GET("/user/page"), userHandler::findByPage)
+		return RouterFunctions.route(RequestPredicates.GET("/user/id/{userId}"), userHandler::getById)
+				.andRoute(RequestPredicates.GET("/user/page"), userHandler::getByPage)
+				.andRoute(RequestPredicates.POST("/user/add"), userHandler::add)
 				.andRoute(RequestPredicates.GET("/oauth/render/github"), oauthHandler::renderAuth)
 				.andRoute(RequestPredicates.GET("/oauth/callback/github"), oauthHandler::login);
 	}

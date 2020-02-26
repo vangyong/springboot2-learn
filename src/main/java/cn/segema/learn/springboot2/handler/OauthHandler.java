@@ -23,7 +23,7 @@ public class OauthHandler {
 	public Mono<ServerResponse> login(ServerRequest request) {
 		AuthRequest authRequest = getAuthRequest();
 		String code = request.pathVariable("code");
-		//AuthResponse authResponse = authRequest.login(code);
+		// AuthResponse authResponse = authRequest.login(code);
 
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(BodyInserters.fromObject(null));
 	}

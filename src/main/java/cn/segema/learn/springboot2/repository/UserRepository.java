@@ -51,7 +51,6 @@ public interface UserRepository extends JpaRepository<User, BigInteger>,JpaSpeci
     @Query(value = "delete from tb_user where user_id=?1",nativeQuery = true)
     void deleteById(BigInteger id);
     
-    
     @Query(value = "SELECT * FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1) ORDER BY ?#{#pageable}",
                countQuery = "SELECT count(*) FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1)",
                nativeQuery = true)

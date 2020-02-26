@@ -1,5 +1,6 @@
 package cn.segema.learn.springboot2.vo;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import lombok.AllArgsConstructor;
@@ -10,9 +11,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVO {
-	private BigInteger id;
+	private BigInteger userId;
 
-	private String name;
+	private String userName;
+
+	private String nickName;
+
+	private Integer gender;
+
+	private String mobileNumber;
 
 	private String password;
+
+	private BigDecimal age;
 }

@@ -30,13 +30,13 @@ public class User implements Serializable {
     @Column(name = "user_name")
     private String userName;
     
-    @ApiModelProperty(value = "密码")
-    @Column(name = "password")
-    private String password;
-    
     @ApiModelProperty(value = "昵称")
     @Column(name = "nick_name")
     private String nickName;
+    
+    @ApiModelProperty(value = "密码")
+    @Column(name = "password")
+    private String password;
 
     @ApiModelProperty(value = "手机号码")
     @Column(name = "mobile_number")
