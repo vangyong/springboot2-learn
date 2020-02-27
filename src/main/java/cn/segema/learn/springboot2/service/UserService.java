@@ -6,30 +6,7 @@ import cn.segema.learn.springboot2.domain.User;
 import reactor.core.publisher.Mono;
 
 public interface UserService {
-	/**
-	 * 添加用户
-	 * 
-	 * @param user
-	 * @return
-	 */
-	Mono<User> create(Mono<User> user);
-
-	/**
-	 * 用户登录
-	 *
-	 * @param username
-	 * @param password
-	 * @return
-	 */
-	Mono<User> find(String username, String password);
-
-	/**
-	 * 获取所有用户
-	 *
-	 * @return
-	 */
-	Mono<User> findAll();
-
+	
 	/**
 	 * 根据id获取
 	 * 
@@ -37,6 +14,29 @@ public interface UserService {
 	 * @return
 	 */
 	Mono<User> findById(BigInteger userId);
+	
+	/**
+	 * 获取所有用户
+	 *
+	 * @return
+	 */
+	Mono<User> findAll();
+	
+	/**
+	 * 添加用户
+	 * 
+	 * @param user
+	 * @return
+	 */
+	Mono<User> create(Mono<User> user);
+	
+	/**
+	 * 编辑用户
+	 * 
+	 * @param user
+	 * @return
+	 */
+	Mono<User> update(Mono<User> user);
 
 	/**
 	 * 删除用户
@@ -44,5 +44,5 @@ public interface UserService {
 	 * @param userId
 	 * @return
 	 */
-	Mono<User> remove(String userId);
+	Mono<User> delete(BigInteger userId);
 }

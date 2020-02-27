@@ -1,6 +1,5 @@
 package cn.segema.learn.springboot2.component;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import io.vertx.mysqlclient.MySQLConnectOptions;

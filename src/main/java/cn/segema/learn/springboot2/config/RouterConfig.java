@@ -21,9 +21,10 @@ public class RouterConfig {
 
 	@Bean
 	public RouterFunction<?> routerFunction() {
-		return RouterFunctions.route(RequestPredicates.GET("/user/id/{userId}"), userHandler::getById)
-				.andRoute(RequestPredicates.GET("/user/page"), userHandler::getByPage)
-				.andRoute(RequestPredicates.POST("/user/add"), userHandler::add)
+		return RouterFunctions.route(RequestPredicates.GET("/user/{userId}"), userHandler::getById)
+				.andRoute(RequestPredicates.GET("/user/page/{userId}"), userHandler::getByPage)
+				.andRoute(RequestPredicates.POST("/user"), userHandler::add)
+				.andRoute(RequestPredicates.PUT("/user"), userHandler::edit)
 				.andRoute(RequestPredicates.GET("/oauth/render/github"), oauthHandler::renderAuth)
 				.andRoute(RequestPredicates.GET("/oauth/callback/github"), oauthHandler::login);
 	}

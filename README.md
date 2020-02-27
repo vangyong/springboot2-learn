@@ -1,6 +1,6 @@
 测试接口调用
-http://localhost:8081/user/page
+GET http://localhost:8081/user/page/1
 
-http://localhost:8081/user/id/1
+GET http://localhost:8081/user/1
 
-http://localhost:8081/user/add
+POST http://localhost:8081/user

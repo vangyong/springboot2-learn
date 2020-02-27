@@ -4,9 +4,10 @@ import java.math.BigInteger;
 
 import javax.validation.Valid;
 
-import org.reactivestreams.Publisher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,54 +16,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.segema.learn.springboot2.domain.User;
+import cn.segema.learn.springboot2.repository.UserRepository;
 import cn.segema.learn.springboot2.service.UserService;
 import reactor.core.publisher.Mono;
 
 @RestController
 public class UserController {
 
-//	@Autowired
-//	private UserRepository userRepository;
-//	
+	@Autowired
+	private UserRepository userRepository;
+
 	@Autowired
 	private UserService userService;
 
-//	@GetMapping("/v2/users")
-//	public Flux<User> getAllUsers() {
-//		return userRepository.findAll();
-//	}
-//
-	@PostMapping("/v2/user")
-	public Mono<void> createUser(@Valid Publisher<Person> userStream) {
-		userService.create(userStream);
-		return his.repository.save(personStream).then();
-	}
-
 	@GetMapping("/v2/user/{userId}")
 	public Mono<ResponseEntity<User>> getById(@PathVariable(value = "userId") BigInteger userId) {
-		return userRepository.findById(userId).map(userOption -> ResponseEntity.ok(userOption));
-				//.defaultIfEmpty(ResponseEntity.notFound().build());
+		
+		return userService.findById(userId).map(userOption -> ResponseEntity.ok(userOption))
+				.defaultIfEmpty(ResponseEntity.notFound().build());
 	}
 
-	@PutMapping("/v2/user/{userId}")
-	public Mono<ResponseEntity<User>> update(@Valid @RequestBody User user) {
-		return userRepository.findById(user.getUserId()).flatMap(existingUser -> {
-			existingUser.setUserName(user.getUserName());
-			//return userRepository.save(existingTweet);
-		}).map(updateUser -> new ResponseEntity<>(updateUser, HttpStatus.OK))
-				.defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	@GetMapping("/v2/user/list")
+	public Mono<ResponseEntity<User>> getAll() {
+		return userService.findAll().map(userOption -> ResponseEntity.ok(userOption))
+				.defaultIfEmpty(ResponseEntity.notFound().build());
 	}
-//
-//	@DeleteMapping("/v2/user/{userId}")
-//	public Mono<ResponseEntity<Void>> deleteTweet(@PathVariable(value = "id") BigInteger userId) {
-//		return userRepository.findById(userId).get()
-//				.flatMap(existingTweet -> tweetRepository.delete(existingTweet)
-//						.then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK))))
-//				.defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//	}
-//
-//	@GetMapping(value = "/v2/user/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-//	public Flux<User> streamAllTweets() {
-//		return userRepository.findAll();
-//	}
+
+	@PostMapping("/v2/user")
+	public Mono<ResponseEntity<User>> add(@Valid @RequestBody Mono<User> user) {
+		Mono<User> userMono = userService.create(user);
+		return userMono.map(userOption -> ResponseEntity.ok(userOption));
+	}
+
+	@PutMapping("/v2/user")
+	public Mono<ResponseEntity<User>> edit(@Valid @RequestBody Mono<User> user) {
+		Mono<User> userMono = userService.update(user);
+		return userMono.map(userOption -> ResponseEntity.ok(userOption));
+	}
+
+	@DeleteMapping("/v2/user/{userId}")
+	public Mono<ResponseEntity<User>> deleteTweet(@PathVariable(value = "userId") BigInteger userId) {
+		Mono<User> userMono = userService.delete(userId);
+		return userMono.map(userOption -> ResponseEntity.ok(userOption))
+				.defaultIfEmpty(new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED));
+	}
 }

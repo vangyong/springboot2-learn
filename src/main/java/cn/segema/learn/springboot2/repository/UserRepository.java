@@ -24,32 +24,32 @@ import cn.segema.learn.springboot2.vo.UserVO;
 public interface UserRepository extends JpaRepository<User, BigInteger>,JpaSpecificationExecutor<User> {
 
     @Query(value = "SELECT a.* FROM tb_user a", nativeQuery = true)
-    List<User> getAllUsers();
+    List<User> getAll();
     
     @Query(value = "select * from tb_user where user_id =?1",nativeQuery = true)
-    Optional<User> findById(BigInteger id);
+    Optional<User> findById(BigInteger userId);
     
     @Transactional
     @Modifying
     @CacheEvict(value = "getAllUsers",keyGenerator="keyGenerator2",allEntries=true)
     @Query(value = "insert into tb_user(user_id,user_name,password) values(:#{#user.userId},:#{#user.userName},:#{#user.password})",
            nativeQuery = true)
-    void createUser(@Param("user") UserVO user);
+    void create(@Param("user") UserVO user);
     
     @Transactional
     @Modifying
     @Query(value = "insert into tb_user(user_id,user_name,password) values(?1,?2,?3)",nativeQuery = true)
-    int addUser(BigInteger userId,String userName,String password);
+    int createByParam(BigInteger userId,String userName,String password);
     
     @Transactional
     @Modifying
-    @CacheEvict(value = {"findById"},keyGenerator="keyGenerator2",allEntries=true)
+    //@CacheEvict(value = {"findById"},keyGenerator="keyGenerator2",allEntries=true)
     @Query(value = "update tb_user set user_name=:#{#user.userName} where user_id=:#{#user.userId}",nativeQuery = true)
-    void updateUser(@Param("user") UserVO user);
+    void update(@Param("user") UserVO user);
     
-    @CacheEvict(value = {"getAllUsers",},keyGenerator="keyGenerator2",allEntries=true)
+    //@CacheEvict(value = {"getAllUsers",},keyGenerator="keyGenerator2",allEntries=true)
     @Query(value = "delete from tb_user where user_id=?1",nativeQuery = true)
-    void deleteById(BigInteger id);
+    void deleteById(BigInteger userId);
     
     @Query(value = "SELECT * FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1) ORDER BY ?#{#pageable}",
                countQuery = "SELECT count(*) FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1)",

@@ -10,7 +10,6 @@ import cn.segema.learn.springboot2.component.MysqlConnectionPool;
 import cn.segema.learn.springboot2.domain.User;
 import cn.segema.learn.springboot2.service.UserService;
 import io.vertx.sqlclient.SqlConnection;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -21,11 +20,20 @@ public class UserServiceImpl implements UserService {
 
 	@Resource
 	private MysqlConnectionPool mysqlConnectionPool;
+	
+	
+	@Override
+	public Mono<User> findById(BigInteger userId) {
+		return null;
+	}
+
+	@Override
+	public Mono<User> findAll() {
+		return null;
+	}
 
 	@Override
 	public Mono<User> create(Mono<User> user) {
-		
-		
 		mysqlConnectionPool.getMySQLPoolClient().getConnection(ar1 -> {
 			if (ar1.succeeded()) {
 				SqlConnection conn = ar1.result();
@@ -44,22 +52,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Mono<User> find(String username, String password) {
+	public Mono<User> update(Mono<User> user) {
+		mysqlConnectionPool.getMySQLPoolClient().getConnection(ar1 -> {
+			if (ar1.succeeded()) {
+				SqlConnection conn = ar1.result();
+				conn.prepare("UPDATE tb_user SET user_id=1001,user_name='xiaoxiao',nick_name='nick' ", ar2 -> {
+					if (ar2.succeeded()) {
+						System.out.println("更新成功");
+					} else {
+						conn.close();
+					}
+				});
+			} else {
+				System.out.println("Could not connect: " + ar1.cause().getMessage());
+			}
+		});
 		return null;
 	}
 
 	@Override
-	public Mono<User> findAll() {
+	public Mono<User> delete(BigInteger userId) {
 		return null;
 	}
 
-	@Override
-	public Mono<User> remove(String userId) {
-		return null;
-	}
 
-	@Override
-	public Mono<User> findById(BigInteger userId) {
-		return null;
-	}
 }
