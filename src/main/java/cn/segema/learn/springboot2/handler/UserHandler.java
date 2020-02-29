@@ -46,7 +46,8 @@ public class UserHandler {
 		UserVO user = new UserVO();
 		String userId = request.pathVariable("userId");
 		user.setUserId(BigInteger.valueOf(Long.valueOf(userId)));
-		Sort sortOrder = new Sort(Sort.Direction.DESC, "user_id");
+		//Sort sortOrder = new Sort(Sort.Direction.DESC, "user_id");
+		Sort sortOrder = Sort.by(Sort.Direction.DESC, "user_id");
 		Pageable pageable = PageRequest.of(1 - 1, 10, sortOrder);
 		Page<User> userPage = userRepository.findByPage(user, pageable);
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
