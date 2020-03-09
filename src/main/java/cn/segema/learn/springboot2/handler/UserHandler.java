@@ -39,7 +39,7 @@ public class UserHandler {
 		Mono<User> userMono = Mono.justOrEmpty(userOptional);
 		Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 		return userMono.flatMap(person -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromValue(person))).switchIfEmpty(notFound);
+				.body(BodyInserters.fromObject(person))).switchIfEmpty(notFound);
 	}
 
 	public Mono<ServerResponse> getByPage(ServerRequest request) {
@@ -51,7 +51,7 @@ public class UserHandler {
 		Pageable pageable = PageRequest.of(1 - 1, 10, sortOrder);
 		Page<User> userPage = userRepository.findByPage(user, pageable);
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromValue(userPage));
+				.body(BodyInserters.fromObject(userPage));
 	}
 
 	public Mono<ServerResponse> add(ServerRequest request) {
@@ -60,14 +60,14 @@ public class UserHandler {
 		Mono<User> user = request.bodyToMono(User.class);
 		Mono<User> userMono = userService.create(user);
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromValue(userMono));
+				.body(BodyInserters.fromObject(userMono));
 	}
 
 	public Mono<ServerResponse> edit(ServerRequest request) {
 		Mono<User> user = request.bodyToMono(User.class);
 		Mono<User> userMono = userService.update(user);
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromValue(userMono));
+				.body(BodyInserters.fromObject(userMono));
 	}
 
 }

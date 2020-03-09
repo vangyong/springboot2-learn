@@ -17,7 +17,7 @@ public class OauthHandler {
 	public Mono<ServerResponse> renderAuth(ServerRequest request) {
 		AuthRequest authRequest = getAuthRequest();
 		// response.sendRedirect(authRequest.authorize());
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromValue(null));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(null));
 	}
 
 	public Mono<ServerResponse> login(ServerRequest request) {
@@ -25,7 +25,7 @@ public class OauthHandler {
 		String code = request.pathVariable("code");
 		// AuthResponse authResponse = authRequest.login(code);
 
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromValue(null));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(null));
 	}
 
 	private AuthRequest getAuthRequest() {
