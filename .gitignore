@@ -13,7 +13,6 @@ target/*
 .settings/
 .factorypath
 */*.factorypath
-.classpath
 .target
 .target/
 .project
@@ -47,3 +46,5 @@ Thumbs.db
 # else
 .springBeans
 */.springBeans
+/.apt_generated/
+/.apt_generated_tests/
