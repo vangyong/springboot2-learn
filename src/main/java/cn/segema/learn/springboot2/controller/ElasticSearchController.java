@@ -1,10 +1,12 @@
-//package cn.segema.cloud.demo.controller;
+//package cn.segema.learn.springboot2.controller;
 //
 //import java.util.ArrayList;
 //import java.util.Date;
 //import java.util.List;
 //import java.util.Optional;
 //import java.util.UUID;
+//
+//import javax.annotation.Resource;
 //
 //import org.elasticsearch.index.query.BoolQueryBuilder;
 //import org.elasticsearch.index.query.QueryBuilders;
@@ -23,21 +25,21 @@
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 //
-//import cn.segema.cloud.demo.repository.DemoCarTransactionRepository;
-//import cn.segema.cloud.demo.vo.DemoCarTransactionVO;
+//import cn.segema.learn.springboot2.repository.CarTransactionRepository;
+//import cn.segema.learn.springboot2.vo.CarTransactionVO;
 //
 //@RestController
-//@RequestMapping(value = "/demo/elastic-search")
-//public class DemoElasticSearchController {
+//@RequestMapping(value = "/elasticsearch")
+//public class ElasticSearchController {
 //
-//    @Autowired
-//    private DemoCarTransactionRepository carTransactionRepository;
+//	@Resource
+//    private CarTransactionRepository carTransactionRepository;
 //    
-//    @Autowired
+//	@Resource
 //    private ElasticsearchTemplate elasticsearchTemplate;
 //
 //    @PostMapping
-//    public ResponseEntity add(@RequestBody DemoCarTransactionVO carTransaction) {
+//    public ResponseEntity add(@RequestBody CarTransactionVO carTransaction) {
 //        carTransaction.setId(UUID.randomUUID().toString());
 //        carTransaction.setSold(new Date());
 //        carTransactionRepository.save(carTransaction);
@@ -46,9 +48,9 @@
 //
 //    @PostMapping("/batch")
 //    public ResponseEntity addBatch() {
-//        List<DemoCarTransactionVO> list = new ArrayList<DemoCarTransactionVO>();
+//        List<CarTransactionVO> list = new ArrayList<CarTransactionVO>();
 //        for (int i = 0; i < 10; i++) {
-//            DemoCarTransactionVO carsTransactionsVO = new DemoCarTransactionVO();
+//            CarTransactionVO carsTransactionsVO = new CarTransactionVO();
 //            carsTransactionsVO.setPrice(i);
 //            carsTransactionsVO.setColor("red" + i);
 //            carsTransactionsVO.setMake("HONDA" + i);
@@ -67,14 +69,14 @@
 //    }
 //
 //    @PutMapping
-//    public ResponseEntity update(@RequestBody DemoCarTransactionVO carTransaction) {
+//    public ResponseEntity update(@RequestBody CarTransactionVO carTransaction) {
 //        carTransactionRepository.save(carTransaction);
 //        return new ResponseEntity("success", HttpStatus.OK);
 //    }
 //
 //    @GetMapping("/{id}")
 //    public ResponseEntity findById(@PathVariable String id) {
-//        Optional<DemoCarTransactionVO> carsTransactionsVO = carTransactionRepository.findById(id);
+//        Optional<CarTransactionVO> carsTransactionsVO = carTransactionRepository.findById(id);
 //        return new ResponseEntity(carsTransactionsVO, HttpStatus.OK);
 //    }
 //
@@ -87,12 +89,12 @@
 //        if (make != null) {
 //            boolQueryBuilder.must(QueryBuilders.matchQuery("make", make));
 //        }
-//        Iterable<DemoCarTransactionVO> carsTransactionsList = carTransactionRepository.search(boolQueryBuilder);
+//        Iterable<CarTransactionVO> carsTransactionsList = carTransactionRepository.search(boolQueryBuilder);
 //        return new ResponseEntity(carsTransactionsList, HttpStatus.OK);
 //    }
 //    
 //    @PostMapping("/template")
-//    public ResponseEntity addByTempalte(@RequestBody DemoCarTransactionVO carTransaction) {
+//    public ResponseEntity addByTempalte(@RequestBody CarTransactionVO carTransaction) {
 //        carTransaction.setId(UUID.randomUUID().toString());
 //        carTransaction.setSold(new Date());
 //        //elasticsearchTemplate.putMapping("car", "transaction", carTransaction);
@@ -101,9 +103,9 @@
 //    }
 //
 //    @GetMapping("/template")
-//    public ResponseEntity findByTempalte(DemoCarTransactionVO carTransaction) {
+//    public ResponseEntity findByTempalte(CarTransactionVO carTransaction) {
 //        SearchQuery searchQuery = new NativeSearchQuery(QueryBuilders.matchAllQuery());
-//        List<DemoCarTransactionVO> carTransactions = elasticsearchTemplate.queryForList(searchQuery, DemoCarTransactionVO.class);
+//        List<CarTransactionVO> carTransactions = elasticsearchTemplate.queryForList(searchQuery, CarTransactionVO.class);
 //        return new ResponseEntity(carTransactions, HttpStatus.OK);
 //    }
 //}
