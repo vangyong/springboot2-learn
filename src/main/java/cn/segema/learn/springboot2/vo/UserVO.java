@@ -1,5 +1,6 @@
 package cn.segema.learn.springboot2.vo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -10,7 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVO {
+public class UserVO  implements Serializable {
+	
+	private static final long serialVersionUID = 559547291188482705L;
+
 	private BigInteger userId;
 
 	private String userName;

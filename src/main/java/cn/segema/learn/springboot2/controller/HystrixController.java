@@ -1,7 +1,5 @@
-//package cn.segema.cloud.demo.controller;
+//package cn.segema.learn.springboot2.controller;
 //
-//import cn.segema.cloud.demo.vo.DemoUserVO;
-//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +9,8 @@
 //import org.springframework.web.client.RestTemplate;
 //
 //@Controller
-//@RequestMapping(value = "/demo/hystrix")
-//public class DemoHystrixController {
+//@RequestMapping(value = "/hystrix")
+//public class HystrixController {
 //
 //    @Autowired
 //    private RestTemplate restTemplate;

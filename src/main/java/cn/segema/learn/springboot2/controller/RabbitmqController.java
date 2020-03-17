@@ -1,4 +1,4 @@
-//package cn.segema.cloud.demo.controller;
+//package cn.segema.learn.springboot2.controller;
 //
 //import org.springframework.amqp.core.AmqpTemplate;
 //import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
@@ -13,7 +13,7 @@
 //
 //@Controller
 //@RequestMapping(value = "/demo/rabbitmq")
-//public class DemoRabbitmqController {
+//public class RabbitmqController {
 //
 //    @Autowired
 //    RabbitMessagingTemplate rabbitMessagingTemplate;
