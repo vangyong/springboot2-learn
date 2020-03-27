@@ -33,7 +33,7 @@ public class FluxController {
     @ApiOperation(value = "新增用户", notes = "新增用户")
     @PostMapping
     public Mono<Object> add(@RequestBody User user) {
-        user.setUserId(new BigInteger("123"));
+        user.setUserId("123");
         return Mono.create(cityMonoSink -> cityMonoSink.success(userRepository.save(user)));
     }
 }

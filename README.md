@@ -3,6 +3,8 @@ GET http://localhost:8080/user/page/1
 
 GET http://localhost:8080/user/1
 
+GET http://localhost:8080/user/person/page
+
 POST http://localhost:8080/user
 
 GET http://localhost:8080/redis/string

@@ -17,35 +17,23 @@ import lombok.Data;
 @ApiModel("用户")
 @Data
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_person")
+public class Person implements Serializable {
     
     private static final long serialVersionUID = 6593063193607142801L;
     
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "人员id")
     @Id
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "person_id")
+    private String personId;
     
-    @ApiModelProperty(value = "用户名")
-    @Column(name = "user_name")
-    private String userName;
+    @ApiModelProperty(value = "人名")
+    @Column(name = "person_name")
+    private String personName;
     
-    @ApiModelProperty(value = "昵称")
-    @Column(name = "nick_name")
-    private String nickName;
-    
-    @ApiModelProperty(value = "密码")
-    @Column(name = "password")
-    private String password;
-
-    @ApiModelProperty(value = "手机号码")
-    @Column(name = "mobile_number")
-    private String mobileNumber;
-
-    @ApiModelProperty(value = "性别")
-    @Column(name = "gender")
-    private Integer gender;
+    @ApiModelProperty(value = "地址")
+    @Column(name = "address_detail")
+    private String addressDetail;
     
     @ApiModelProperty(value = "年龄")
     @Column(name = "age")

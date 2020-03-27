@@ -45,7 +45,7 @@ public class UserHandler {
 	public Mono<ServerResponse> getByPage(ServerRequest request) {
 		UserVO user = new UserVO();
 		String userId = request.pathVariable("userId");
-		user.setUserId(BigInteger.valueOf(Long.valueOf(userId)));
+		user.setUserId(userId);
 		//Sort sortOrder = new Sort(Sort.Direction.DESC, "user_id");
 		Sort sortOrder = Sort.by(Sort.Direction.DESC, "user_id");
 		Pageable pageable = PageRequest.of(1 - 1, 10, sortOrder);

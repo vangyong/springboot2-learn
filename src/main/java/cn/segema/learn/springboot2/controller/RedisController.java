@@ -51,10 +51,10 @@ public class RedisController {
 	@GetMapping("/hash")
 	public ResponseEntity hash(User user) {
 		UserVO user1 = new UserVO();
-		user1.setUserId(new BigInteger("1"));
+		user1.setUserId("1");
 		user1.setUserName("a1");
 		UserVO user2 = new UserVO();
-		user2.setUserId(new BigInteger("2"));
+		user2.setUserId("2");
 		user2.setUserName("a2");
 
 		String hash_key = "hashkey";
@@ -70,10 +70,10 @@ public class RedisController {
 	@GetMapping("/list")
 	public ResponseEntity list(User user) {
 		UserVO user1 = new UserVO();
-		user1.setUserId(new BigInteger("1"));
+		user1.setUserId("1");
 		user1.setUserName("a1");
 		UserVO user2 = new UserVO();
-		user2.setUserId(new BigInteger("2"));
+		user2.setUserId("2");
 		user2.setUserName("a2");
 
 		List<UserVO> userList = new ArrayList<UserVO>();
@@ -96,10 +96,10 @@ public class RedisController {
 	@GetMapping("/set")
 	public ResponseEntity set(User user) {
 		UserVO user1 = new UserVO();
-		user1.setUserId(new BigInteger("1"));
+		user1.setUserId("1");
 		user1.setUserName("a1");
 		UserVO user2 = new UserVO();
-		user2.setUserId(new BigInteger("2"));
+		user2.setUserId("2");
 		user2.setUserName("a2");
 
 		Set<UserVO> userSet = new HashSet<UserVO>();
@@ -116,10 +116,10 @@ public class RedisController {
 	@GetMapping("/zset")
 	public ResponseEntity zset(User user) {
 		UserVO user1 = new UserVO();
-		user1.setUserId(new BigInteger("1"));
+		user1.setUserId("1");
 		user1.setUserName("a1");
 		UserVO user2 = new UserVO();
-		user2.setUserId(new BigInteger("2"));
+		user2.setUserId("2");
 		user2.setUserName("a2");
 
 		//Set<TypedTuple<UserVO>> userzSet = new HashSet<TypedTuple<UserVO>>();

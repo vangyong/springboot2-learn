@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.segema.learn.springboot2.domain.User;
+import cn.segema.learn.springboot2.vo.UserPersonVO;
 import cn.segema.learn.springboot2.vo.UserVO;
 
 @CacheConfig(cacheNames = "userRepository")
@@ -55,4 +56,19 @@ public interface UserRepository extends JpaRepository<User, BigInteger>,JpaSpeci
                countQuery = "SELECT count(*) FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1)",
                nativeQuery = true)
     public Page<User> findByPage(@Param("user") UserVO user, Pageable pageable);
+    
+    
+//    @Query(value = "SELECT u.user_id as userId,u.user_name as userName,u.nick_name as nickName,p.person_id as personId,p.person_name as personName FROM tb_user u,tb_person p,tb_user_peron up WHERE u.user_id = up.user_id AND p.person_id = up.person_id"
+//    		+ "  if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1) ORDER BY ?#{#pageable}",
+//            countQuery = "SELECT count(*) FROM tb_user u,tb_person p,tb_user_peron up WHERE u.user_id = up.user_id AND p.person_id = up.person_id"
+//            		+ " if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) ORDER BY ?#{#pageable}",
+//            nativeQuery = true)
+//    public Page<UserPersonVO> findUserPersonByPage(@Param("user") UserVO user, Pageable pageable);
+    
+    @Query(value = "SELECT u.* FROM tb_user u WHERE if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1)"
+    		+ "   ORDER BY ?#{#pageable} ",
+           countQuery = "SELECT count(*) FROM tb_user u WHERE if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1)"
+            + "  ORDER BY ?#{#pageable} ",
+           nativeQuery = true)
+    public Page<User> findUserPersonByPage(@Param("user") UserVO user,Pageable pageable);
 }
