@@ -13,11 +13,11 @@ public class UserPersonVO {
 
     private String nickName;
 
-    private BigInteger personId;
+    private String personId;
 
     private String personName;
 
-    public UserPersonVO(String userId, String userName, String nickName, BigInteger personId,
+    public UserPersonVO(String userId, String userName, String nickName, String personId,
         String personName) {
         super();
         this.userId = userId;

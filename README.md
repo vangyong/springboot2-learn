@@ -3,7 +3,9 @@ GET http://localhost:8080/user/page/1
 
 GET http://localhost:8080/user/1
 
-GET http://localhost:8080/user/person/page
+GET http://localhost:8080/v2/user/person/page
+
+GET http://localhost:8080/v2/user/person/list
 
 POST http://localhost:8080/user
 

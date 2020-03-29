@@ -1,6 +1,7 @@
 package cn.segema.learn.springboot2.handler;
 
 import java.math.BigInteger;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Resource;
@@ -49,7 +50,7 @@ public class UserHandler {
 		//Sort sortOrder = new Sort(Sort.Direction.DESC, "user_id");
 		Sort sortOrder = Sort.by(Sort.Direction.DESC, "user_id");
 		Pageable pageable = PageRequest.of(1 - 1, 10, sortOrder);
-		Page<User> userPage = userRepository.findByPage(user, pageable);
+		Page<Map> userPage = userRepository.findByPage(user, pageable);
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromObject(userPage));
 	}

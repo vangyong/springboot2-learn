@@ -2,6 +2,7 @@ package cn.segema.learn.springboot2.repository;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.cache.annotation.CacheConfig;
@@ -16,6 +17,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.segema.learn.springboot2.domain.Person;
 import cn.segema.learn.springboot2.domain.User;
 import cn.segema.learn.springboot2.vo.UserPersonVO;
 import cn.segema.learn.springboot2.vo.UserVO;
@@ -55,20 +57,36 @@ public interface UserRepository extends JpaRepository<User, BigInteger>,JpaSpeci
     @Query(value = "SELECT * FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1) ORDER BY ?#{#pageable}",
                countQuery = "SELECT count(*) FROM tb_user WHERE if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) and if(:#{#user.gender}!='',gender = :#{#user.gender},1=1)",
                nativeQuery = true)
-    public Page<User> findByPage(@Param("user") UserVO user, Pageable pageable);
+    public Page<Map> findByPage(@Param("user") UserVO user, Pageable pageable);
     
+//nativeQuery 结果集用map装   
+    @Query(value = "SELECT u.user_id as userId,u.user_name as userName,u.nick_name as nickName,p.person_id as personId,p.person_name as personName "
+    		+ " FROM tb_user u,tb_person p,tb_user_person up "
+    		+ " WHERE u.user_id = up.user_id AND p.person_id = up.person_id"
+    		+ "  AND if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1)",
+            nativeQuery = true)
+    public Page<Map> findUserPersonByPage(Pageable pageable,@Param("user") UserVO user);
     
-//    @Query(value = "SELECT u.user_id as userId,u.user_name as userName,u.nick_name as nickName,p.person_id as personId,p.person_name as personName FROM tb_user u,tb_person p,tb_user_peron up WHERE u.user_id = up.user_id AND p.person_id = up.person_id"
-//    		+ "  if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1) ORDER BY ?#{#pageable}",
-//            countQuery = "SELECT count(*) FROM tb_user u,tb_person p,tb_user_peron up WHERE u.user_id = up.user_id AND p.person_id = up.person_id"
-//            		+ " if(:#{#user.userName}!='',user_name = :#{#user.userName},1=1) ORDER BY ?#{#pageable}",
-//            nativeQuery = true)
-//    public Page<UserPersonVO> findUserPersonByPage(@Param("user") UserVO user, Pageable pageable);
+//jpql 结果集用VO装      
+//    @Query(value = "SELECT new cn.segema.learn.springboot2.vo.UserPersonVO(u.userId as userId,u.userName as userName,u.nickName as nickName,p.personId as personId,p.personName as personName)  "
+//    		+ " FROM User u, Person p,UserPerson up "
+//    		+ " WHERE u.userId = up.userId AND p.personId = up.personId "
+//    		+ " AND (:#{#user.userName} IS NULL OR u.userName = :#{#user.userName})"
+//            )
+//    public Page<UserPersonVO> findUserPersonByPage(Pageable pageable,@Param("user") UserVO user);
+    
+//jpql 结果集用map装    
+//    @Query(value = "SELECT u.userId as userId,u.userName as userName,u.nickName as nickName,p.personId as personId,p.personName as personName  "
+//    		+ " FROM User u, Person p,UserPerson up "
+//    		+ " WHERE u.userId = up.userId AND p.personId = up.personId "
+//    		+ " AND (:#{#user.userName} IS NULL OR u.userName = :#{#user.userName})"
+//            )
+//    public Page<Map> findUserPersonByPage(Pageable pageable,@Param("user") UserVO user);
+    
     
     @Query(value = "SELECT u.* FROM tb_user u WHERE if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1)"
-    		+ "   ORDER BY ?#{#pageable} ",
-           countQuery = "SELECT count(*) FROM tb_user u WHERE if(:#{#user.userName}!='',u.user_name = :#{#user.userName},1=1)"
-            + "  ORDER BY ?#{#pageable} ",
-           nativeQuery = true)
-    public Page<User> findUserPersonByPage(@Param("user") UserVO user,Pageable pageable);
+    		+ "   ORDER BY u.user_id ",
+    		nativeQuery = true)
+    public List<Map> findUserPersonList(@Param("user") UserVO user);
+    
 }
