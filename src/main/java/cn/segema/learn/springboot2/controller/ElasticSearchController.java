@@ -37,6 +37,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/elasticsearch")
 public class ElasticSearchController {
+    
+    public static String  INDEX  = "commodity";
+    
+    public static String  TYPE  = "transaction";
 
 	@Autowired
 	private RestHighLevelClient restHighLevelClient;
@@ -44,7 +48,7 @@ public class ElasticSearchController {
 	@PostMapping
 	public ResponseEntity add(@RequestBody Map map) {
 		try {
-			IndexRequest indexRequest = new IndexRequest("person", "teacher", UUID.randomUUID().toString()).source(map);
+			IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, UUID.randomUUID().toString()).source(map);
 			IndexResponse indexResponse = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
 			return new ResponseEntity(indexResponse, HttpStatus.OK);
 		} catch (Exception e) {
@@ -62,7 +66,7 @@ public class ElasticSearchController {
 			map.put("id", i);
 			map.put("name", "测试"+i);
 			map.put("age", 22+i);
-			IndexRequest indexRequest = new IndexRequest("person", "teacher", UUID.randomUUID().toString()).source(map);
+			IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, UUID.randomUUID().toString()).source(map);
 			bulkRequest.add(indexRequest);
 		}
 		BulkResponse bulkResponse;
@@ -77,7 +81,7 @@ public class ElasticSearchController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity delete(@PathVariable String id) {
-		 DeleteRequest request = new DeleteRequest("person", "teacher", id);
+		 DeleteRequest request = new DeleteRequest(INDEX, TYPE, id);
          DeleteResponse deleteResponse;
 		try {
 			deleteResponse = this.restHighLevelClient.delete(request, RequestOptions.DEFAULT);
@@ -91,7 +95,7 @@ public class ElasticSearchController {
 	@PutMapping
 	public ResponseEntity update(@RequestBody Map map) {
 		try {
-			UpdateRequest request = new UpdateRequest("person", "teacher", map.get("id").toString()).doc(map);
+			UpdateRequest request = new UpdateRequest(INDEX, TYPE, map.get("id").toString()).doc(map);
 			UpdateResponse updateResponse = restHighLevelClient.update(request, RequestOptions.DEFAULT);
 			return new ResponseEntity(updateResponse, HttpStatus.OK);
 		} catch (Exception e) {
@@ -103,7 +107,7 @@ public class ElasticSearchController {
 	@GetMapping("/{id}")
 	public ResponseEntity findById(@PathVariable String id) {
 		try {
-			GetRequest request = new GetRequest("person", "teacher", id);
+			GetRequest request = new GetRequest(INDEX, TYPE, id);
 			GetResponse getResponse = this.restHighLevelClient.get(request, RequestOptions.DEFAULT);
 			return new ResponseEntity(getResponse, HttpStatus.OK);
 		} catch (Exception e) {
@@ -114,9 +118,9 @@ public class ElasticSearchController {
 
 	@GetMapping("/list")
 	public ResponseEntity findList(@RequestBody Map map) {
-		SearchRequest searchRequest = new SearchRequest().indices("person").types("teacher");
+		SearchRequest searchRequest = new SearchRequest().indices(INDEX).types(TYPE);
 		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-		MatchPhrasePrefixQueryBuilder mppqb = QueryBuilders.matchPhrasePrefixQuery("name", map.get("name"));
+		MatchPhrasePrefixQueryBuilder mppqb = QueryBuilders.matchPhrasePrefixQuery("make", map.get("name"));
 		
 		sourceBuilder.query(mppqb);
 		try {

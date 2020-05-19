@@ -1,6 +1,8 @@
 package cn.segema.learn.springboot2.controller;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +45,26 @@ public class UserController {
 		return userService.findById(userId).map(userOption -> ResponseEntity.ok(userOption))
 				.defaultIfEmpty(ResponseEntity.notFound().build());
 	}
+	
+	//CloseableHttpResponse httpResponse =  HttpUtil.doGet("http://127.0.0.1:8080/v2/test/1", null, null);
+	@GetMapping("/v2/test/{userId}")
+    public ResponseEntity<Map> getTestById(@PathVariable(value = "userId") BigInteger userId) {
+	    List<Map> sourceList = new ArrayList<Map>();
+	    Map source = new HashMap();
+	    source.put("type", 1);
+	    source.put("ip", "198.54.115.43");
+	    source.put("count", 8);
+	    source.put("asset_name", null);
+	    source.put("domain", null);
+	    sourceList.add(source);
+	    Map data = new HashMap(); 
+	    data.put("source", sourceList);
+	    Map map = new HashMap();
+        map.put("data", data);
+        
+        return new ResponseEntity(map,HttpStatus.OK);
+    }
+
 
 	@GetMapping("/v2/user/list")
 	public Mono<ResponseEntity<User>> getAll() {
