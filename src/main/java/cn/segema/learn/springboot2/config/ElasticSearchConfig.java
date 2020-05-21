@@ -2,8 +2,6 @@ package cn.segema.learn.springboot2.config;
 
 import java.util.Arrays;
 import java.util.Objects;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
@@ -74,7 +72,7 @@ public class ElasticSearchConfig {
      * @return HttpHost
      */
     private HttpHost makeHttpHost(String s) {
-        assert StringUtils.isNotEmpty(s);
+        assert !org.springframework.util.StringUtils.isEmpty(s);
         String[] address = s.split(":");
         if (address.length == ADDRESS_LENGTH) {
             String ip = address[0];

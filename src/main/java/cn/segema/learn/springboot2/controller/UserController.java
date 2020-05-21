@@ -52,11 +52,29 @@ public class UserController {
 	    List<Map> sourceList = new ArrayList<Map>();
 	    Map source = new HashMap();
 	    source.put("type", 1);
-	    source.put("ip", "198.54.115.43");
+	    source.put("ip", "10.8.1.3");
 	    source.put("count", 8);
-	    source.put("asset_name", null);
-	    source.put("domain", null);
+	    source.put("asset_name", "10.8.1.3资产");
+	    source.put("domain", "鱼鱼");
 	    sourceList.add(source);
+	    
+	    Map source2 = new HashMap();
+	    source2.put("type", 3);
+	    source2.put("ip", "10.10.19.8");
+	    source2.put("count", 18);
+	    source2.put("asset_name", "10.10.19.8资产");
+	    source2.put("domain", "aaa");
+        sourceList.add(source2);
+        
+        Map source3 = new HashMap();
+        source3.put("type", 2);
+        source3.put("ip", "10.10.19.2");
+        source3.put("count", 18);
+        source3.put("asset_name", "10.10.19.2资产");
+        source3.put("domain", "ccc");
+        sourceList.add(source3);
+	    
+	    
 	    Map data = new HashMap(); 
 	    data.put("source", sourceList);
 	    Map map = new HashMap();
