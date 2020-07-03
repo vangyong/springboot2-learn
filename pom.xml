@@ -88,6 +88,16 @@
 		    <version>2.0-stable</version>
 		</dependency> 
 		
+		<!-- neo4j -->
+		<dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-http-driver</artifactId>
+        </dependency>
+		<dependency> 
+          <groupId>org.springframework.boot</groupId> 
+          <artifactId>spring-boot-starter-data-neo4j</artifactId> 
+        </dependency>
+		
 		<!-- justauth-spring -->
 		<dependency>
 			<groupId>com.xkcoding.justauth</groupId>

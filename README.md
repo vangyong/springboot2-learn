@@ -12,3 +12,7 @@ POST http://localhost:8080/user
 GET http://localhost:8080/redis/string
 
 POST http://localhost:8080/elasticsearch
+
+POST http://127.0.0.1:8080/neo4j/movie/node
+
+GET http://127.0.0.1:8080/neo4j/movie/node
