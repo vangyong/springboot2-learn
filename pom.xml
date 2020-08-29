@@ -104,6 +104,11 @@
 			<artifactId>justauth-spring-boot-starter</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		
+		<dependency>  
+           <groupId>org.springframework.boot</groupId>  
+           <artifactId>spring-boot-starter-websocket</artifactId>  
+       </dependency> 
 
 		<!-- test -->
 		<dependency>
