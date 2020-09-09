@@ -119,10 +119,10 @@ public class ElasticSearchController {
 	@GetMapping("/list")
 	public ResponseEntity findList(@RequestBody Map map) {
 		SearchRequest searchRequest = new SearchRequest().indices(INDEX).types(TYPE);
-		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		MatchPhrasePrefixQueryBuilder mppqb = QueryBuilders.matchPhrasePrefixQuery("make", map.get("name"));
 		
-		sourceBuilder.query(mppqb);
+		searchSourceBuilder.query(mppqb);
 		try {
 			SearchResponse searchResponse = this.restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
 			String result = searchResponse.toString();

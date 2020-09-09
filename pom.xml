@@ -109,6 +109,13 @@
            <groupId>org.springframework.boot</groupId>  
            <artifactId>spring-boot-starter-websocket</artifactId>  
        </dependency> 
+       
+        <!-- simple-http -->
+		<dependency>
+		    <groupId>com.xkcoding.http</groupId>
+		    <artifactId>simple-http</artifactId>
+		    <version>1.0.2</version>
+		</dependency>
 
 		<!-- test -->
 		<dependency>
